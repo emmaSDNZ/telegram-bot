@@ -56,20 +56,28 @@ bot.action('quote', ctx =>{
     })
 }) 
 
+async function fetchQuote(type){
+    
+    const res = await axios.get(`http://localhost:3000/quotes/${type}`)
+    //console.log(res.data)
+    return res.data.quote;
+
+}
+
+
 bot.hears('Frases de amistad', async (ctx) => {
-   
-    ctx.reply("ha seleccionado frases de amistad");
+   const quote = await fetchQuote("amistad")
+    ctx.reply(quote);
 })
 
 bot.hears('Chistes cortos', async (ctx) => {
-    
-    ctx.reply("ha seleccionado frases de chistes corto");
+    const quote = await fetchQuote("graciosas")
+    ctx.reply(quote);
 })
 
 bot.hears('Frases para informaticos', async (ctx) => {
-    
-    ctx.reply("ha seleccionado frases para informaticos");
-
+    const quote = await fetchQuote("informaticos")
+    ctx.reply(quote);
 })
 
 bot.hears('Salir', ctx => {
